@@ -17,7 +17,7 @@ post "/signup" do
     session[:user] = user.token
     redirect "/" 
   else
-    #TODO: Fix validation errors
+    session[:errors] = user.errors.to_a 
     redirect "/signup?" + hash_to_query_string(params[:user])
   end
 end
@@ -51,4 +51,9 @@ end
 get "/secret" do
   login_required
   "This is a secret secret"
+end
+
+# Clear out sessions
+at_exit do
+  session[:errors] = nil
 end

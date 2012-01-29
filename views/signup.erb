@@ -1,5 +1,13 @@
 <h3>Users</h3>
 
+<% if session[:errors] %>
+  <ul>
+    <% for error in session[:errors] %>
+      <li><%= error %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <form action="/signup" method="post">
   
   <p>

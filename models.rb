@@ -14,15 +14,8 @@ class User
   property :password_salt,  Text
   property :token,          Text
   
-  validates_with_method :confirm_password
-
-  def confirm_password
-    if password == password_confirmation
-      return true
-    else
-      [false, "Password and Password confirmation do not match"]
-    end    
-  end
+  validates_presence_of :password
+  validates_confirmation_of :password
 
 end
 
