@@ -33,11 +33,8 @@ helpers do
   end
 
   def current_user
-    if request.cookies["user"]
-      @current_user ||= User.first(:id => request.cookies["user"]) 
-      return @current_user
-    end
-    @current_user ||= User.first(:id => session[:user]) if session[:user]
+    return @current_user ||= User.first(:token => request.cookies["user"]) if request.cookies["user"]
+    @current_user ||= User.first(:token => session[:user]) if session[:user]
   end
 
   def logged_in?

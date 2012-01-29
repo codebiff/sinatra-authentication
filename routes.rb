@@ -12,7 +12,7 @@ post "/signup" do
   user.password_hash = BCrypt::Engine.hash_secret(params[:user][:password], user.password_salt)
   if user.save
     flash[:info] = "Thank you for registering #{user.email}" 
-    session[:user] = user.id
+    session[:user] = user.token
     redirect "/" 
   else
     session[:errors] = user.errors.full_messages
@@ -31,8 +31,8 @@ end
 post "/login" do
   if user = User.first(:email => params[:email])
     if user.password_hash == BCrypt::Engine.hash_secret(params[:password], user.password_salt)
-    session[:user] = user.id 
-    response.set_cookie "user", {:value => user.id, :expires => (Time.now + 52*7*24*60*60)} if params[:remember_me]
+    session[:user] = user.token 
+    response.set_cookie "user", {:value => user.token, :expires => (Time.now + 52*7*24*60*60)} if params[:remember_me]
     redirect_last
     else
       flash[:error] = "Email/Password combination does not match"
@@ -45,9 +45,9 @@ post "/login" do
 end
 
 get "/logout" do
-  flash[:info] = "Successfully logged out"
   response.delete_cookie "user"
   session[:user] = nil
+  flash[:info] = "Successfully logged out"
   redirect "/"
 end
 
