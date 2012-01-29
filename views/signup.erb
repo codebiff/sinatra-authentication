@@ -1,0 +1,22 @@
+<h3>Users</h3>
+
+<form action="/signup" method="post">
+  
+  <p>
+    <label for="user[email]">Email</label>
+    <input type="text" name="user[email]" value="<%= params[:email] %>"/>
+  </p>
+
+  <p>
+    <label for="user[password]">Password</label>
+    <input type="password" name="user[password]"/>
+  </p>
+
+  <p>
+    <label for="user[password_confirmation]">Password Confirmation</label>
+    <input type="password" name="user[password_confirmation]"/>
+  </p>
+
+  <input type="submit" value="Register"/>
+
+</form>
