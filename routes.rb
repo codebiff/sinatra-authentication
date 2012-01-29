@@ -45,6 +45,7 @@ post "/login" do
 end
 
 get "/logout" do
+  current_user.generate_token
   response.delete_cookie "user"
   session[:user] = nil
   flash[:info] = "Successfully logged out"

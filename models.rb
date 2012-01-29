@@ -10,7 +10,7 @@ class User
   attr_accessor :password, :password_confirmation
 
   property :id,             Serial
-  property :email,          String, :required => true, :unique => true, :format => :email_address
+  property :email,          String,     :required => true, :unique => true, :format => :email_address
   property :password_hash,  Text  
   property :password_salt,  Text
   property :token,          String
@@ -21,7 +21,11 @@ class User
   validates_length_of           :password, :min => 6
 
   before :create do
-    self.token = SecureRandom.hex(15)
+    self.token = SecureRandom.hex
+  end
+
+  def generate_token
+    self.update!(:token => SecureRandom.hex)
   end
 
 end
