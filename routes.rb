@@ -13,7 +13,7 @@ post "/signup" do
   user.password_hash = BCrypt::Engine.hash_secret(params[:user][:password], user.password_salt)
   user.token         = BCrypt::Engine.generate_salt
   if user.save
-    # Flash AOK!
+    flash[:info] = "Thank you for registering #{user.email}" 
     session[:user] = user.token
     redirect "/" 
   else
@@ -36,14 +36,17 @@ post "/login" do
     session[:user] = user.token 
     redirect_last
     else
+      flash[:error] = "Email/Password combination does not match"
       redirect "/login?email=#{params[:email]}"
     end
   else
+    flash[:error] = "That email address is not recognised"
     redirect "/login?email=#{params[:email]}"
   end
 end
 
 get "/logout" do
+  flash[:info] = "Successfully logged out"
   session[:user] = nil
   redirect "/"
 end

@@ -23,7 +23,7 @@ helpers do
     if session[:user]
       return true
     else
-      # flash login required to ciew this page
+      flash[:notice] =  "Login required to view this page"
       session[:redirect_to] = request.fullpath
       redirect "/login"
       return false
