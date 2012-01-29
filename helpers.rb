@@ -55,3 +55,8 @@ helpers do
   end
 
 end
+
+# Clear out sessions
+at_exit do
+  session[:errors] = nil
+end
