@@ -20,7 +20,7 @@ class User
   validates_confirmation_of     :password
   validates_length_of           :password, :min => 6
 
-  before :create do
+  after :create do
     self.token = SecureRandom.hex
   end
 

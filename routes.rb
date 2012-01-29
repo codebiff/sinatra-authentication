@@ -21,7 +21,7 @@ post "/signup" do
 end
 
 get "/login" do
-  if session[:user]
+  if current_user
     redirect_last
   else
     erb :login
