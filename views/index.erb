@@ -1,3 +1,7 @@
+<%= request.cookies["user"] %>
+<%= session[:user] %>
+
+
 <% if current_user %>
   <p>Logged in as <%= current_user.email %> | <a href="/logout">logout</a></p>
 <% else %>

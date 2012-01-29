@@ -1,4 +1,6 @@
 helpers do
+  include Rack::Utils
+  alias_method :h, :escape_html
   
   # Convert a hash to a querystring for form population
   def hash_to_query_string(hash)
@@ -31,7 +33,11 @@ helpers do
   end
 
   def current_user
-    @current_user ||= User.first(:token => session[:user]) if session[:user]
+    if request.cookies["user"]
+      @current_user ||= User.first(:id => request.cookies["user"]) 
+      return @current_user
+    end
+    @current_user ||= User.first(:id => session[:user]) if session[:user]
   end
 
   def logged_in?

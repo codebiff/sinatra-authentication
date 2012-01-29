@@ -12,10 +12,10 @@ class User
   property :email,          String, :required => true, :unique => true, :format => :email_address
   property :password_hash,  Text  
   property :password_salt,  Text
-  property :token,          Text
   
   validates_presence_of :password
   validates_confirmation_of :password
+  validates_length_of :password, :min => 6
 
 end
 
