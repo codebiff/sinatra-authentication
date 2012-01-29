@@ -14,14 +14,16 @@ class User
   property :password_hash,  Text  
   property :password_salt,  Text
   property :token,          String
+  property :created_at,     DateTime
   
-  validates_presence_of :password
-  validates_confirmation_of :password
-  validates_length_of :password, :min => 6
-  
-  before :save do
+  validates_presence_of         :password
+  validates_confirmation_of     :password
+  validates_length_of           :password, :min => 6
+
+  before :create do
     self.token = SecureRandom.hex(15)
   end
+
 end
 
 DataMapper.finalize
