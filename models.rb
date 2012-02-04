@@ -15,6 +15,7 @@ class User
   property :password_salt,  Text
   property :token,          String
   property :created_at,     DateTime
+  property :admin,          Boolean,    :default => false
   
   validates_presence_of         :password
   validates_confirmation_of     :password
@@ -26,6 +27,10 @@ class User
 
   def generate_token
     self.update!(:token => SecureRandom.hex)
+  end
+
+  def admin?
+    self.admin
   end
 
 end

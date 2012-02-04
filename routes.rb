@@ -57,3 +57,12 @@ get "/secret" do
   "This is a secret secret"
 end
 
+get "/supersecret" do
+  admin_required
+  "Well done on being super special. You're a star!"
+end
+
+get "/personal/:id" do
+  is_owner? params[:id]
+  "Here's your personal stuff... all about you!"
+end

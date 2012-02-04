@@ -32,11 +32,40 @@ helpers do
     end
   end
 
+  # Require admin flag to view page
+  def admin_required
+    if current_user && is_admin?
+      return true
+    else
+      flash[:notice] =  "Admin required to view this page"
+      redirect "/"
+      return false
+    end
+  end
+
+  # Check user has admin flag
+  def is_admin?
+    !!current_user.admin?
+  end
+
+  # Check logged in user is the owner
+  def is_owner? owner_id
+    if current_user && current_user.id.to_i == owner_id.to_i
+      return true
+    else
+      flash[:notice] =  "You are not authorised to view this page"
+      redirect "/"
+      return false
+    end    
+  end
+
+  # Return current_user record if logged in
   def current_user
     return @current_user ||= User.first(:token => request.cookies["user"]) if request.cookies["user"]
     @current_user ||= User.first(:token => session[:user]) if session[:user]
   end
 
+  # check if user is logged in?
   def logged_in?
     !!session[:user]
   end
