@@ -2,7 +2,7 @@
 
 ### Basics
 
-Clone it. Add some routes. Use the helpers.
+Clone it. Add to it. Make it better. Add some routes. Use the helpers.
 
 ### Helpers
 
