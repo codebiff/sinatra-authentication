@@ -64,5 +64,5 @@ end
 
 get "/personal/:id" do
   is_owner? params[:id]
-  "Here's your personal stuff... all about you!"
+  "<pre>id: #{current_user.id}\nemail: #{current_user.email}\nadmin? #{current_user.admin}</pre>"
 end
